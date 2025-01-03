@@ -25,12 +25,4 @@ public class ConfigLoader {
              default -> properties.getProperty("environment.default.baseUrl");
          };
      }
-
-     public String getDriverPath(String browser) {
-         return switch (browser) {
-             case "chrome" -> properties.getProperty("driver.windows.chromePath");
-             case "firefox" -> properties.getProperty("driver.windows.firefoxPath");
-             default -> throw new IllegalStateException("Unknown browser: " + browser);
-         };
-     }
 }

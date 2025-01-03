@@ -1,12 +1,12 @@
 package de.mirko_werner.playwright_cucumber.utils;
 
-import com.microsoft.playwright.BrowserContext;
 import io.cucumber.java.After;
+import io.cucumber.java.AfterAll;
 import io.cucumber.java.Before;
 
 public class Hooks {
 
-    @Before
+    @Before(order = 100)
     public void before() {
         PageFactory.setNewPage();
     }
@@ -14,5 +14,10 @@ public class Hooks {
     @After
     public void after() {
         PageFactory.closeContext();
+    }
+
+    @AfterAll
+    public static void afterAll() {
+        PageFactory.closePlaywright();
     }
 }

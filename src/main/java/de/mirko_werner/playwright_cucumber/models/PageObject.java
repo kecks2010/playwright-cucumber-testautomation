@@ -1,34 +1,27 @@
 package de.mirko_werner.playwright_cucumber.models;
 
 import com.microsoft.playwright.Page;
-import de.mirko_werner.cucumber.utils.ConfigLoader;
-import de.mirko_werner.cucumber.utils.WebdriverFactory;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.WebDriverWait;
-
-import java.time.Duration;
+import de.mirko_werner.playwright_cucumber.utils.ConfigLoader;
+import de.mirko_werner.playwright_cucumber.utils.PageFactory;
 
 public abstract class PageObject {
 
     protected Page page;
-    protected WebDriverWait wait;
 
     protected PageObject() {
-        this.getWebDriver();
+        this.getPage();
     }
 
     public Page getPage() {
         if (this.page == null) {
-            this.webDriver = WebdriverFactory.getDriver();
-            this.wait = new WebDriverWait(webDriver, Duration.ofSeconds(15));
-            PageFactory.initElements(webDriver, this);
+            this.page = PageFactory.getPage();
         }
         return this.page;
     }
 
     public void openUrl() {
-        this.getPage().(this.getUrl());
+        this.getPage().navigate(this.getUrl());
+        this.getPage().waitForLoadState();
     }
 
     protected String getUrl() {
